@@ -1,10 +1,8 @@
 <template>
 <div class="home">
-    <img alt="Vue logo" src="@/assets/happy.gif">
-    <h1>{{ msg }}</h1>
     <div class='home-emoji'>
-        <a-input-search v-model:value="emojiData.value" placeholder="搜索表情包" style="width: 80%;height:50px;" @search='searchEmoji(emojiData.value)' />
-        <div style="padding:20px;position:relative;">
+        <a-input-search v-model:value="emojiData.value" placeholder="搜索表情包" style="margin:20px;width: 80%;height:50px;box-shadow:5px 5px 20px rgba(0,0,0,.13);" @search='searchEmoji(emojiData.value)' />
+        <div style="position:relative;">
             <Emoji :emojiData="emojiData.imgData" :emojiTotal="emojiData.length" :searchWords="emojiData.value" :searchTitle="emojiData.value"></Emoji>
         </div>
     </div>
@@ -83,12 +81,14 @@ export default {
 .home {
     position: relative;
     width: 100%;
-    padding: 80px;
+    height: 100%;
+    
+    
 }
 
 .home-emoji {
     position: relative;
     width: 100%;
-
+    height: 100%;
 }
 </style>

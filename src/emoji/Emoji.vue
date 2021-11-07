@@ -1,6 +1,6 @@
 <template>
 <div class="emoji">
-    <a-card :title="searchTitle? searchTitle:'欢迎搜索'">
+    <a-card :title="searchTitle? '关键词：'+searchTitle:'欢迎搜索图片与表情包'" >
         <template v-for="item,index in showEmoji.showImg" :key='index'>
             <a-card-grid style="width: 20%;text-align: center;overflow:auto;">
                 <a-image :src="item" style="height:110px" />
@@ -120,5 +120,6 @@ export default {
     transform: translateX(-50%);
     width: 80%;
     overflow: hidden;
+    box-shadow:5px 5px 20px rgba(0,0,0,.18);
 }
 </style>

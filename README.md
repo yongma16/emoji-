@@ -4,7 +4,7 @@
 前端：vue+antd
 后端：django (爬取百度的图片搜索)
 
-yongma16.xyz/emiji/index
+http://yongma16.xyz/emoji/index/
 # 预览
 ![alt text](img/index.jpg "Title")
 
