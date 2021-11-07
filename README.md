@@ -4,6 +4,10 @@
 前端：vue+antd
 后端：django (爬取百度的图片搜索)
 
+yongma16.xyz/emiji/index
+# 预览
+![alt text](img/index.jpg "Title")
+
 ## Project setup
 ```
 yarn install
