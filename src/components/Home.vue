@@ -82,13 +82,15 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    
-    
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 .home-emoji {
     position: relative;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 </style>

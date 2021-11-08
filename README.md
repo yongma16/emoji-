@@ -6,7 +6,7 @@
 
 http://yongma16.xyz/emoji/index/
 # 预览
-![alt text](img/index.jpg "Title")
+![alt text](./img/index.jpg "Title")
 
 ## Project setup
 ```

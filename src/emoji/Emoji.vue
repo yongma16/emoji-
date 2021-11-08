@@ -1,9 +1,9 @@
 <template>
 <div class="emoji">
-    <a-card :title="searchTitle? '关键词：'+searchTitle:'欢迎搜索图片与表情包'" >
+    <a-card :title="searchTitle? '关键词：'+searchTitle:'欢迎搜索图片与表情包'">
         <template v-for="item,index in showEmoji.showImg" :key='index'>
-            <a-card-grid style="width: 20%;text-align: center;overflow:auto;">
-                <a-image :src="item" style="height:110px" />
+            <a-card-grid class="grid-img-class">
+                <a-image :src="item" class="card-img-image" />
             </a-card-grid>
         </template>
     </a-card>
@@ -120,6 +120,54 @@ export default {
     transform: translateX(-50%);
     width: 80%;
     overflow: hidden;
-    box-shadow:5px 5px 20px rgba(0,0,0,.18);
+    box-sizing: border-box;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, .18);
+}
+
+.grid-img-class {
+    width: 20%;
+    height:200px;
+    text-align: center;
+    overflow: auto;
+    align-content: center;
+    justify-items: center;
+}
+.grid-img-class::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background: #b46868;
+
+} /* 滚动条的滑轨背景颜色 */
+
+.grid-img-class::-webkit-scrollbar-thumb {
+    height:5px;
+    border-radius: 2px;
+  background: rgba(17, 227, 255, 0.2); 
+
+} /* 滑块颜色 */
+
+.grid-img-class::-webkit-scrollbar-button {
+    border-radius: 2px;
+  background: #ffa581;
+
+} /* 滑轨两头的监听按钮颜色 */
+
+.grid-img-class::-webkit-scrollbar-corner {
+    border-radius: 2px;
+    background: rgb(81, 255, 226);
+
+} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+.card-img-image{
+    height:110px;
+}
+@media only screen and (max-width: 600px){
+    .grid-img-class{
+        width:100%
+    }
+    .emoji {
+        overflow: auto;
+    }
+    .card-img-image{
+    height:auto;
+}
 }
 </style>

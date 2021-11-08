@@ -39,7 +39,7 @@
                     </a-menu-item>
                 </a-menu>
             </a-layout-header>
-            <a-layout-content style="padding:10px;background:url('http://yongma16.xyz/static/emoji/imgs/background.jpg')">
+            <a-layout-content style="padding:10px;background:url('http://yongma16.xyz/static/emoji/imgs/background.jpg');background-size:cover;background-repeat: no-repeat;">
                 <Home msg="表情包搜索" />
             </a-layout-content>
             <a-layout-footer style="box-shadow:5px 5px 20px rgba(0,0,0,.2);">
@@ -99,7 +99,7 @@ export default {
             }
         )
         const jumpPage = (value) => {
-            console.log('value',value,typeof(value))
+            console.log('value', value, typeof (value))
             switch (value) {
                 case 'home':
                     window.open('http://yongma16.xyz/');
@@ -140,6 +140,7 @@ export default {
     height: 100%;
     overflow: hidden;
     background: #fff;
+    box-sizing: border-box;
     /* padding: 10px; */
     /* background: #076585; */
     /* fallback for old browsers */
@@ -157,5 +158,14 @@ export default {
     margin: 0;
     padding: 0;
     font-weight: 200;
+}
+
+@media only screen and (max-width: 600px) {
+    #app {
+        overflow: auto;
+        /* overflow: hidden; */
+        background: #fff;
+        box-sizing: border-box;
+    }
 }
 </style>
