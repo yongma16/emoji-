@@ -1,8 +1,10 @@
 <template>
 <div class="home">
+    <div class="home-search">
+        <a-input-search class="home-search-input" v-model:value="emojiData.value" placeholder="搜索表情包" @search='searchEmoji(emojiData.value)' />
+    </div>
     <div class='home-emoji'>
-        <a-input-search v-model:value="emojiData.value" placeholder="搜索表情包" style="margin:20px;width: 80%;height:50px;box-shadow:5px 5px 20px rgba(0,0,0,.13);" @search='searchEmoji(emojiData.value)' />
-        <div style="position:relative;">
+        <div class="home-emoji-component">
             <Emoji :emojiData="emojiData.imgData" :emojiTotal="emojiData.length" :searchWords="emojiData.value" :searchTitle="emojiData.value"></Emoji>
         </div>
     </div>
@@ -83,14 +85,52 @@ export default {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .home-emoji {
     position: relative;
+    top: 60px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
+}
+
+.home-emoji-component {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.home-search {
+    position: relative;
+}
+
+.home-search-input {
+    position: fixed;
+    margin-top: 0;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 50px;
+    overflow: hidden;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, .13);
+    z-index: 1;
+}
+
+/* 手机宽度600px */
+@media only screen and (max-width: 600px) {
+    .home{
+        overflow: auto;
+    }
+    .home-emoji {
+        overflow: auto;
+    }
+
+    .home-emoji-component {
+        overflow: auto;
+    }
 }
 </style>
