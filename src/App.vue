@@ -10,7 +10,11 @@
             box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
           "
         >
-          <a-menu v-model:selectedKeys="current" mode="horizontal" style="margin: 0">
+          <a-menu
+            v-model:selectedKeys="currentModel"
+            mode="horizontal"
+            @select="selectMenu"
+          >
             <a-menu-item key="home">
               <template #icon>
                 <HomeOutlined />
@@ -23,6 +27,18 @@
                 <SearchOutlined />
               </template>
               图片搜索
+            </a-menu-item>
+            <a-menu-item key="designFlow">
+              <template #icon>
+                <FundOutlined />
+              </template>
+              流程图
+            </a-menu-item>
+            <a-menu-item key="editSvg">
+              <template #icon>
+                <FontColorsOutlined />
+              </template>
+              在线修改csv
             </a-menu-item>
             <a-menu-item key="github">
               <template #icon>
@@ -53,7 +69,7 @@
             background-repeat: no-repeat;
           "
         >
-          <EmojiSearch msg="表情包搜索" />
+          <component :is="currentComponent" :msg="msg"></component>
         </a-layout-content>
         <a-layout-footer style="box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2)">
           <div class="footer_font">
@@ -68,11 +84,16 @@
 
 <script>
 import { MailOutlined } from "@ant-design/icons-vue";
-import { GithubOutlined, HomeOutlined, SearchOutlined } from "@ant-design/icons-vue";
-import { onMounted, ref, watch } from "vue";
-// import CanvasNest from 'canvas-nest.js'
-
-import EmojiSearch from "./components/EmojiSearch.vue";
+import {
+  GithubOutlined,
+  HomeOutlined,
+  SearchOutlined,
+  FontColorsOutlined,
+  FundOutlined,
+} from "@ant-design/icons-vue";
+import { toRefs, reactive } from "vue";
+import EmojiSearch from "./components/EmojiSearch";
+import EditSvg from "./components/EditSvg";
 
 export default {
   name: "App",
@@ -82,27 +103,22 @@ export default {
     GithubOutlined,
     HomeOutlined,
     SearchOutlined,
+    FontColorsOutlined,
+    FundOutlined,
+    EditSvg,
   },
   setup() {
-    onMounted(() => {});
-    const current = ref(["imgSearch"]);
-    watch(
-      () => {
-        current.value;
-      },
-      () => {
-        console.log("current", current.value[0]);
-        if (current.value) {
-          jumpPage(current.value[0]);
-        }
-      },
-      {
-        deep: true,
-        immediate: false,
-      }
-    );
+    const state = reactive({
+      currentModel: ["imgSearch"],
+      components: ["EmojiSearch", "EditSvg"],
+      currentComponent: "EmojiSearch",
+      msg: "表情包搜索",
+    });
+    const selectMenu = ({ item, key, selectedKeys }) => {
+      console.log(item, key, selectedKeys);
+      jumpPage(key);
+    };
     const jumpPage = (value) => {
-      console.log("value", value, typeof value);
       switch (value) {
         case "home":
           window.open("http://yongma16.xyz/");
@@ -116,13 +132,22 @@ export default {
         case "writer":
           window.open("https://blog.csdn.net/qq_38870145");
           break;
+        case "editSvg":
+          state.currentComponent = "EditSvg";
+          break;
+        case "imgSearch":
+          state.currentComponent = "EmojiSearch";
+          break;
+        case "designFlow":
+          state.currentComponent = "designFlow";
+          break;
         default:
           break;
       }
     };
     return {
-      current,
-      jumpPage,
+      ...toRefs(state),
+      selectMenu,
     };
   },
 };
