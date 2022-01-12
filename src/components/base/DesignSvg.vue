@@ -176,27 +176,28 @@ export default {
 .design-color-extract {
   position: relative;
   display: flex;
-  height: 60px;
+  height: 50px;
 }
 .design-color-select-box {
   position: relative;
   display: flex;
+  margin-top: 10px;
 }
 .design-color-select-box-record {
   position: relative;
   display: flex;
-  width: 50%;
-  height: 60px;
+  width: auto;
+  height: 50px;
 }
 .design-color-quick-extract {
   position: relative;
-  height: 60px;
+  height: 40px;
 }
 .design-color-select-box-focus {
   position: relative;
   margin-left: 10px;
   width: 110px;
-  height: 50px;
+  height: 40px;
   border: 1px solid #444;
   display: flex;
   background: #fff;
@@ -227,7 +228,7 @@ export default {
   position: relative;
   margin-left: 10px;
   width: 100px;
-  height: 50px;
+  height: 40px;
   border: 1px solid #444;
   overflow: hidden;
   box-sizing: border-box;

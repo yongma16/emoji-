@@ -73,8 +73,7 @@
         </a-layout-content>
         <a-layout-footer style="box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2)">
           <div class="footer_font">
-            Copyright &copy;2021 yongma16.xyz
-            <!-- &nbsp;&nbsp;&nbsp;浏览量:{{readCount}} -->
+            Copyright &copy;2021 yongma16.xyz &nbsp;&nbsp;&nbsp;浏览量:{{ readCount }}
           </div>
         </a-layout-footer>
       </a-layout>
@@ -91,10 +90,11 @@ import {
   FontColorsOutlined,
   FundOutlined,
 } from "@ant-design/icons-vue";
-import { toRefs, reactive } from "vue";
+import { toRefs, reactive, onMounted } from "vue";
 import EmojiSearch from "./components/EmojiSearch";
 import EditSvg from "./components/EditSvg";
-
+import TreePath from "./treePath/TreePath";
+import { getReadInfo } from "./services/getEmojiApi";
 export default {
   name: "App",
   components: {
@@ -106,13 +106,15 @@ export default {
     FontColorsOutlined,
     FundOutlined,
     EditSvg,
+    TreePath,
   },
   setup() {
     const state = reactive({
-      currentModel: ["imgSearch"],
-      components: ["EmojiSearch", "EditSvg"],
-      currentComponent: "EmojiSearch",
+      currentModel: ["designFlow"],
+      components: ["EmojiSearch", "TreePath", "EditSvg"],
+      currentComponent: "TreePath",
       msg: "表情包搜索",
+      readCount: null,
     });
     const selectMenu = ({ item, key, selectedKeys }) => {
       console.log(item, key, selectedKeys);
@@ -139,12 +141,23 @@ export default {
           state.currentComponent = "EmojiSearch";
           break;
         case "designFlow":
-          state.currentComponent = "designFlow";
+          state.currentComponent = "TreePath";
           break;
         default:
           break;
       }
     };
+    onMounted(() => {
+      try {
+        getReadInfo().then((res) => {
+          if (res) {
+            state.readCount = res.data.num;
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    });
     return {
       ...toRefs(state),
       selectMenu,

@@ -20,4 +20,11 @@ async function postEmojiApi(params) {
     return axios.post(baseurl, params)
 }
 
-export { getEmojiApi, postEmojiApi, auotEmojiApi }
+// 获取浏览量
+// post获取表情包
+async function getReadInfo() {
+    const baseurl = 'http://yongma16.xyz/count/get/'
+    return axios.get(baseurl)
+}
+
+export { getEmojiApi, postEmojiApi, auotEmojiApi, getReadInfo }
