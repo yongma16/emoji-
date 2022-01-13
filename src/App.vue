@@ -32,7 +32,7 @@
               <template #icon>
                 <FundOutlined />
               </template>
-              流程图
+              关系图
             </a-menu-item>
             <a-menu-item key="editSvg">
               <template #icon>
@@ -110,9 +110,9 @@ export default {
   },
   setup() {
     const state = reactive({
-      currentModel: ["designFlow"],
+      currentModel: ["imgSearch"],
       components: ["EmojiSearch", "TreePath", "EditSvg"],
-      currentComponent: "TreePath",
+      currentComponent: "EmojiSearch",
       msg: "表情包搜索",
       readCount: null,
     });

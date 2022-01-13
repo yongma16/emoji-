@@ -7,10 +7,17 @@
 import { defineComponent, onMounted, toRefs, reactive } from "vue";
 import * as echarts from "echarts";
 export default defineComponent({
-  porps: {},
-  setup() {
+  porps: {
+    config: Object,
+  },
+  setup(props) {
+    console.log(props, "props");
     const state = reactive({
       pathData: {},
+      widthLength: 0,
+      heightLength: 0,
+      data: [],
+      links: [],
     });
     onMounted(() => {
       console.log("路径图");
@@ -189,13 +196,73 @@ export default defineComponent({
       };
       treeDom && options && renderDom.setOption(options, true); //渲染
       try {
-        window.onresize(() => {
-          renderDom.resize(); //窗口改变重绘
-        });
+        window.addEventListener("resize", () => renderDom.resize()); //窗口改变重绘);
+        // window.onresize(() => {
+        //   renderDom.resize(); //窗口改变重绘
+        // });
       } catch (error) {
         throw Error(error);
       }
+      getData(); //获取数据
     };
+    // 处理坐标 深度决定高度，广度决定宽度 固定每个单位占据5的大小
+    const locationSplit = () => {
+      return new Promise((resolve, inject) => {
+        try {
+          // 深度遍历
+          deepLength(props.config.data);
+          // 广度遍历
+          wildLength(props.config.data);
+          resolve("分配宽高完成");
+        } catch (e) {
+          inject(e);
+          throw Error(e);
+        }
+      });
+    };
+    const getData = async () => {
+      await locationSplit();
+      // 进行分配坐标 奇数居中 偶数两边展开
+      // {name,x,y}
+      if (props.config.data) {
+        let deeplength = deepData(props.config.data, 0);
+        console.log("测试", deeplength);
+      }
+    };
+    // 深度获取长度和
+    const deepData = (node, length) => {
+      if (node.child) {
+        node.chid.map((item) => {
+          deepData(item, length);
+        });
+      }
+      return length + 1;
+    };
+    // 深度
+    function deepLength(node) {
+      if (node.child) {
+        // 存在子集遍历回调
+        node.child.map((item) => {
+          return deepLength(item);
+        });
+      }
+      return state.heightLength + 5;
+    }
+    // 广度
+    function wildLength(node) {
+      if (node.child) {
+        // 取出最长的子集长度
+        let num = node.child.length;
+        if (num > state.widthLength) {
+          state.widthLength = num;
+        }
+        // 存在子集遍历回调
+        node.child.map((item) => {
+          return wildLength(item);
+        });
+      }
+    }
+    // 处理连线
     return { ...toRefs(state) };
   },
 });
