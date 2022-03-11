@@ -209,10 +209,12 @@ export default defineComponent({
     const locationSplit = () => {
       return new Promise((resolve, inject) => {
         try {
-          // 深度遍历
-          deepLength(props.config.data);
-          // 广度遍历
-          wildLength(props.config.data);
+          if (props.config && props.config.data) {
+            // 深度遍历
+            deepLength(props.config.data);
+            // 广度遍历
+            wildLength(props.config.data);
+          }
           resolve("分配宽高完成");
         } catch (e) {
           inject(e);
@@ -224,7 +226,7 @@ export default defineComponent({
       await locationSplit();
       // 进行分配坐标 奇数居中 偶数两边展开
       // {name,x,y}
-      if (props.config.data) {
+      if (props.config && props.config.data) {
         let deeplength = deepData(props.config.data, 0);
         console.log("测试", deeplength);
       }
@@ -272,6 +274,7 @@ export default defineComponent({
   position: relative;
   height: 100%;
   width: 100%;
+  overflow: hidden;
   /* background: linear-gradient(to right, #ccc 1px, transparent 1px),
     linear-gradient(to bottom, #ccc 1px, transparent 1px);
   background-repeat: repeat;
@@ -279,8 +282,9 @@ export default defineComponent({
   border: 1px solid #00cec9;
 }
 .tree-path-node-render {
-  width: 100%;
+  position: relative;
+  width: 100vw;
   height: 800px;
-  border: 1px solid #00cec9;
+  /* border: 1px solid #00cec9; */
 }
 </style>

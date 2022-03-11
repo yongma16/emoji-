@@ -2,7 +2,7 @@
 <template>
   <div class="design">
     <div class="design-img">
-      <img src="../../assets/logo.svg" id="design-svg-id" />
+      <img :src="require('../../assets/logo.svg')" id="design-svg-id" />
     </div>
     <div class="design-color-extract" :ref="extractRef" id="extract-id"></div>
     <div class="design-color-select-box">

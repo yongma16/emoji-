@@ -40,6 +40,12 @@
               </template>
               在线修改csv
             </a-menu-item>
+            <a-menu-item key="scrollText">
+              <template #icon>
+                <FontColorsOutlined />
+              </template>
+              文字自适应滚动
+            </a-menu-item>
             <a-menu-item key="github">
               <template #icon>
                 <GithubOutlined />
@@ -94,6 +100,7 @@ import { toRefs, reactive, onMounted } from "vue";
 import EmojiSearch from "./components/EmojiSearch";
 import EditSvg from "./components/EditSvg";
 import TreePath from "./treePath/TreePath";
+import ScrollText from "./components/base/ScrollText";
 import { getReadInfo } from "./services/getEmojiApi";
 export default {
   name: "App",
@@ -107,12 +114,13 @@ export default {
     FundOutlined,
     EditSvg,
     TreePath,
+    ScrollText,
   },
   setup() {
     const state = reactive({
       currentModel: ["imgSearch"],
       components: ["EmojiSearch", "TreePath", "EditSvg"],
-      currentComponent: "EmojiSearch",
+      currentComponent: "TreePath",
       msg: "表情包搜索",
       readCount: null,
     });
@@ -142,6 +150,9 @@ export default {
           break;
         case "designFlow":
           state.currentComponent = "TreePath";
+          break;
+        case "scrollText":
+          state.currentComponent = "ScrollText";
           break;
         default:
           break;
