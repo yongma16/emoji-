@@ -4,7 +4,6 @@
       <a-layout>
         <a-layout-header
           style="
-            background: #076585;
             text-align: left;
             padding: 0;
             box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
@@ -20,31 +19,82 @@
                 <HomeOutlined />
                 <mail-outlined />
               </template>
-              博客主页
+              <a-popover title="博客主页" trigger="hover">
+                <template #content>
+                  <PreviewContent
+                    :previewDetailConfig="{
+                      componentName: 'BlogSite',
+                      title: '博客主页',
+                    }"
+                  />
+                </template>
+                博客主页
+              </a-popover>
             </a-menu-item>
+
             <a-menu-item key="imgSearch">
               <template #icon>
                 <SearchOutlined />
               </template>
-              图片搜索
+              <a-popover title="图片搜索" trigger="hover">
+                <template #content>
+                  <PreviewContent
+                    :previewDetailConfig="{
+                      componentName: 'EmojiSearch',
+                      title: '图片搜索',
+                    }"
+                  />
+                </template>
+                图片搜索
+              </a-popover>
             </a-menu-item>
             <a-menu-item key="designFlow">
               <template #icon>
                 <FundOutlined />
               </template>
-              关系图
+              <a-popover title="关系图" trigger="hover">
+                <template #content>
+                  <PreviewContent
+                    :previewDetailConfig="{
+                      componentName: 'TreePath',
+                      title: '关系图',
+                    }"
+                  />
+                </template>
+                关系图
+              </a-popover>
             </a-menu-item>
             <a-menu-item key="editSvg">
               <template #icon>
                 <FontColorsOutlined />
               </template>
-              在线修改csv
+              <a-popover title="修改SVG颜色" trigger="hover">
+                <template #content>
+                  <PreviewContent
+                    :previewDetailConfig="{
+                      componentName: 'EditSvg',
+                      title: '修改Svg',
+                    }"
+                  />
+                </template>
+                修改SVG颜色
+              </a-popover>
             </a-menu-item>
             <a-menu-item key="scrollText">
               <template #icon>
                 <FontColorsOutlined />
               </template>
-              文字自适应滚动
+              <a-popover title="文字自适应滚动" trigger="hover">
+                <template #content>
+                  <PreviewContent
+                    :previewDetailConfig="{
+                      componentName: 'ScrollText',
+                      title: '文字自适应滚动',
+                    }"
+                  />
+                </template>
+                文字自适应滚动
+              </a-popover>
             </a-menu-item>
             <a-menu-item key="github">
               <template #icon>
@@ -61,7 +111,9 @@
             <!-- style="float:right;position: absolute;" -->
             <a-menu-item key="writer">
               <template #icon>
-                <a-avatar src="http://yongma16.xyz/static/emoji/imgs/yma16.jpg" />
+                <a-avatar
+                  src="http://yongma16.xyz/static/emoji/imgs/yma16.jpg"
+                />
               </template>
               yma16
             </a-menu-item>
@@ -79,7 +131,9 @@
         </a-layout-content>
         <a-layout-footer style="box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2)">
           <div class="footer_font">
-            Copyright &copy;2021 yongma16.xyz &nbsp;&nbsp;&nbsp;浏览量:{{ readCount }}
+            Copyright &copy;2021 yongma16.xyz &nbsp;&nbsp;&nbsp;浏览量:{{
+              readCount
+            }}
           </div>
         </a-layout-footer>
       </a-layout>
@@ -101,6 +155,7 @@ import EmojiSearch from "./components/EmojiSearch";
 import EditSvg from "./components/EditSvg";
 import TreePath from "./treePath/TreePath";
 import ScrollText from "./components/base/ScrollText";
+import PreviewContent from "./components/base/PreviewContent";
 import { getReadInfo } from "./services/getEmojiApi";
 export default {
   name: "App",
@@ -115,14 +170,19 @@ export default {
     EditSvg,
     TreePath,
     ScrollText,
+    PreviewContent,
   },
   setup() {
     const state = reactive({
       currentModel: ["imgSearch"],
-      components: ["EmojiSearch", "TreePath", "EditSvg"],
+      components: ["EmojiSearch", "TreePath", "EditSvg", "ScrollText"],
       currentComponent: "TreePath",
       msg: "表情包搜索",
       readCount: null,
+      previewDetailConfig: {
+        currentComponent: "TreePath",
+        msg: "",
+      },
     });
     const selectMenu = ({ item, key, selectedKeys }) => {
       console.log(item, key, selectedKeys);
@@ -144,15 +204,19 @@ export default {
           break;
         case "editSvg":
           state.currentComponent = "EditSvg";
+          state.msg = "编辑svg";
           break;
         case "imgSearch":
           state.currentComponent = "EmojiSearch";
+          state.msg = "图片搜索";
           break;
         case "designFlow":
           state.currentComponent = "TreePath";
+          state.msg = "路径图";
           break;
         case "scrollText":
           state.currentComponent = "ScrollText";
+          state.msg = "文字滚动";
           break;
         default:
           break;
